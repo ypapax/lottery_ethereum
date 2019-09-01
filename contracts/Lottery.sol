@@ -17,20 +17,20 @@ contract Lottery {
     }
 
     function drawWinner() public {
-        require(now > ticketingCloses + 5 minutes);
+//        require(now > ticketingCloses + 5 minutes);
         require(winner == address(0));
 
         winner = tickets[random() % tickets.length];
         winner.transfer(address(this).balance);
     }
 
-    function random() private returns (uint){
+    function random() private view returns (uint){
         uint source = block.difficulty + now;
         bytes memory source_b = toBytes(source);
         return uint(keccak256(source_b));
     }
 
-    function toBytes(uint256 x) public returns (bytes memory b) {
+    function toBytes(uint256 x) pure public returns (bytes memory b) {
         b = new bytes(32);
         assembly {mstore(add(b, 32), x)}
     }

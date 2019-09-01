@@ -21,4 +21,12 @@ rund(){
   docker build -t playbook . && docker run playbook "$@"
 }
 
+s(){
+  docker exec -ti lottery /bin/bash "$@"
+}
+
+#accounts(){
+#  s cat /root/ganache-accounts.json | jq .
+#}
+
 "$@"

@@ -1,0 +1,121 @@
+---
+INVENTORY:
+  genesis:
+    - http://localhost:8545
+
+WALLETS:
+  wallet1:
+    address: wallet1Addr
+    privkey: wallet1Key
+
+  wallet2:
+    address: wallet2Addr
+    privkey: wallet2Key
+
+  wallet3:
+    address: wallet3Addr
+    privkey: wallet3Key
+
+
+
+  # foo3:
+  #   address: 0x3b47427740b5dedf1bfae36862a78d7134609607
+  #   keystore: "var/chain/keystore"
+  #   password: "1234"
+
+CONTRACTS:
+  lottery:
+    name: Lottery
+    sol: contracts/Lottery.sol
+    instances:
+      - &PTO123
+        contract: lottery
+        address: 0x0
+      - &PTO124
+        contract: lottery
+        address: 0x0
+
+CALL:
+  eth-balances:
+    wallet: .
+    method: eth_getBalance
+    params:
+      - {type: address, value: @@}
+      - latest
+  txinfo:
+    method: eth_getTransactionByHash
+    params:
+      - {type: string, reference: $1}
+  txreceipt:
+    method: eth_getTransactionReceipt
+    params:
+      - {type: string, reference: $1}
+
+VIEW:
+  get-owner:
+    instance: *PTO123
+    method: owner
+
+  token-balances:
+    wallet: .
+    instance: *PTO123
+    method: balanceOf
+    params:
+      - {type: address, value: @@}
+
+WRITE:
+  send-100-wei:
+    wallet: alice
+    to: bob
+    value: 100
+
+  send-wei:
+    wallet: alice
+    to: bob
+    value: $1
+
+  send-100-gwei:
+    wallet: alice
+    to: bob
+    value: 100 gwei
+
+  send-1-ether:
+    wallet: alice
+    to: bob
+    value: 1 ether
+
+  deploy-lottery:
+    wallet: wallet1
+    instance:
+      contract: lottery
+
+  wallet2:
+    wallet: wallet2
+    instance: *PTO123
+    method: buy
+    params:
+      - {type: uint, value: 1e15}
+
+  wallet3:
+    wallet: wallet2
+    instance: *PTO123
+    method: transfer
+    params:
+      - {type: uint, value: 1e15}
+
+  # same as transfer, but unified with ETH send
+  finish:
+    wallet: wallet1
+    instance: *PTO123
+    method: drawWinner
+
+TARGETS:
+  make-transfers:
+    - token-balances
+    - wallet2
+    - wallet3
+    - finish
+    - token-balances
+  view:
+    - txinfo
+    - txreceipt
