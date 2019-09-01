@@ -12,5 +12,13 @@ truffleMigrate() {
   truffle migrate -f 2
 }
 
+build() {
+  docker-compose build
+  docker-compose up
+}
+
+rund(){
+  docker build -t playbook . && docker run playbook "$@"
+}
 
 "$@"
