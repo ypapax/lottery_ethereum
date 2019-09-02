@@ -93,15 +93,11 @@ WRITE:
     wallet: wallet2
     instance: *PTO123
     method: buy
-    params:
-      - {type: uint, value: 1e15}
 
   wallet3:
-    wallet: wallet2
+    wallet: wallet3
     instance: *PTO123
-    method: transfer
-    params:
-      - {type: uint, value: 1e15}
+    method: buy
 
   # same as transfer, but unified with ETH send
   finish:
@@ -111,7 +107,6 @@ WRITE:
 
 TARGETS:
   make-transfers:
-    - token-balances
     - wallet2
     - wallet3
     - finish
