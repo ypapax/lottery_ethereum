@@ -16,6 +16,10 @@ WALLETS:
     address: wallet3Addr
     privkey: wallet3Key
 
+  wallet4:
+    address: wallet4Addr
+    privkey: wallet4Key
+
 
 
   # foo3:
@@ -99,6 +103,11 @@ WRITE:
     instance: *PTO123
     method: buy
 
+  wallet4:
+    wallet: wallet4
+    instance: *PTO123
+    method: buy
+
   # same as transfer, but unified with ETH send
   finish:
     wallet: wallet1
@@ -109,6 +118,7 @@ TARGETS:
   make-transfers:
     - wallet2
     - wallet3
+    - wallet4
     - finish
     - token-balances
   view:
