@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -ex
-ganache-cli -a 4 --acctKeys="/root/ganache-accounts.json" &
+ganache-cli --defaultBalanceEther 200 -a 4 --acctKeys="/root/ganache-accounts.json" &
 sleep 3
 node /root/set-public-private-key-strings-in-config.js
 cat /root/playbook/playbook.yml | grep WALLETS -A 20
