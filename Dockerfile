@@ -25,7 +25,7 @@ RUN wget -O /usr/local/bin/solc https://github.com/ethereum/solidity/releases/do
 RUN chmod +x /usr/local/bin/solc
 
 RUN ls && pwd && go get -u github.com/ypapax/ethereum-playbook
-
+RUN npm i truffle -g
 RUN mkdir -p /root/playbook/contracts
 WORKDIR /root/playbook
 COPY entrypoint.sh /entrypoint.sh
