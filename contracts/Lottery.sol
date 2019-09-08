@@ -11,8 +11,8 @@ contract Lottery {
     }
 
     function buy() public payable {
-        require(msg.value == TICKET_PRICE);
-        require(now < ticketingCloses);
+//        require(msg.value == TICKET_PRICE);
+//        require(now < ticketingCloses);
         tickets.push(msg.sender);
     }
 

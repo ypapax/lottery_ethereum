@@ -120,7 +120,6 @@ TARGETS:
     - wallet3
     - wallet4
     - finish
-    - token-balances
   view:
     - txinfo
     - txreceipt
